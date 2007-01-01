@@ -1,6 +1,6 @@
-/*DROP TABLE IF EXISTS `light`;*/
+/*DROP TABLE IF EXISTS `lights`;*/
 
-CREATE TABLE IF NOT EXISTS `light` (
+CREATE TABLE IF NOT EXISTS `lights` (
   `room` varchar(25) NOT NULL ,
   `status` BIT(1) NOT NULL,
   PRIMARY KEY (`room`)
@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS `light` (
 
 /*LOCK TABLES `intrusion` WRITE;*/
 
-INSERT INTO light (room,status) VALUES, ('Camera','0'), ('Cameretta','0'), ('Cucina','0'), ('Sala','0');
+INSERT INTO lights (room,status) VALUES, ('Camera','0'), ('Cameretta','0'), ('Cucina','0'), ('Sala','0');
 
 UNLOCK TABLES;
