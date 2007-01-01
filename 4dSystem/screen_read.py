@@ -33,17 +33,17 @@ def verifica (lista):
 			lista_control2.append(pwd2[i])
 			
 		if lista == lista_control1:
-			goto_form(1)
+			goto_form(ser, 1)
 			del lista[0:6]
 			return
 							
 		elif lista == lista_control2:		
-			goto_form(2)
+			goto_form(ser, 2)
 			del lista[0:6]
 			return
 								
 		else:
-			goto_form(3)
+			goto_form(ser, 3)
 			del lista[0:99]
 			return	
 							
@@ -84,7 +84,7 @@ while True:
 						del lista [-1]
 				else:
 					lista.append (numero_codice)
-					scrivi_su_stringa (numero_codice)
+					string_write_code (ser, numero_codice)
 		pacchetto = ""
 	
 ser.close()

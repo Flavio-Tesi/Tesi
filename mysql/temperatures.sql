@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `temperatures`;
 
 CREATE TABLE IF NOT EXISTS `temperatures` (
   `room` varchar(25) NOT NULL ,
-  `valore` int(8) DEFAULT NULL,
+  `val` int(8) DEFAULT NULL,
   PRIMARY KEY (`room`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
