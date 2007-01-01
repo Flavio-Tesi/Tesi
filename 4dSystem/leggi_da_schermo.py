@@ -86,12 +86,12 @@ while True:
 	#		checksum = calcola_checksum(comando,par)
 	#		print "%02x" % ord(checksum)
 			
-			ser.write("0x010A10000001")
-	#		ser.write("\x0A")
-	#		ser.write("\x01")
-	#		ser.write("\x00")
-	#		ser.write("\x00")
-	#		ser.write("\x0A")
+			ser.write("\x01")
+			ser.write("\x0A")
+			ser.write("\x01")
+			ser.write("\x00")
+			ser.write("\x00")
+			ser.write("\x0A")
 			
 			
 						
