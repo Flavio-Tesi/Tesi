@@ -1,5 +1,6 @@
 import serial
 import db_query
+import screen_write
  
 ser = serial.Serial(
     port='/dev/ttys4', 
@@ -17,16 +18,6 @@ def calcola_checksum (comando, parametro):
 		com = com ^ ord(parametro[i])
 	com = chr(com)
 	return com
-
-def goto_form (index):
-	
-	lista = ["\x01","\x0A",chr(index),"\x00","\x00"]
-	ls1 = lista[0]	
-	for i in range (1, len(lista)):
-		ls1 = calcola_checksum(ls1, lista[i])
-	lista.append(ls1)
-	for i in range (0, len(lista)):
-		ser.write(lista[i])
 
 def verifica (lista):
 	if len(lista)>0:
@@ -75,19 +66,6 @@ def spacchetta(pacchetto):
 pacchetto = ""
 lista = []
 
-
-def scrivi_su_stringa (numero_codice):
-	
-	ls_ser = ['\x02', '\x00', '\x01',chr(ord(numero_codice))]
-	ls1 = ls_ser[0]	
-	for i in range (1, len(ls_ser)):
-		ls1 = calcola_checksum(ls1, ls_ser[i])
-	ls_ser.append(ls1)
-	for i in range (0, len(ls_ser)):
-		ser.write(ls_ser[i])
-		
-	
-
 while True: 
 	s = ser.read(1) 
 	if len(s)>0:	
@@ -110,27 +88,3 @@ while True:
 		pacchetto = ""
 	
 ser.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
