@@ -26,8 +26,6 @@ def goto_form (index):
 	lista.append(ls1)
 	for i in range (0, len(lista)):
 		ser.write(lista[i])
-	
-
 
 def verifica (lista):
 	if len(lista)>0:
@@ -45,17 +43,14 @@ def verifica (lista):
 			return
 								
 		else:
-			print "ERROR!"
-			del lista[0:99]
+			goto_form(3)
 			return	
 							
 	else:
 		print "INSERIRE CODICE!"
 		del lista[0:99]
 		return				
-
-		
-				
+			
 def spacchetta(pacchetto):
 	comando = pacchetto[0]
 	parametro = pacchetto[1:-1]
@@ -70,14 +65,18 @@ def spacchetta(pacchetto):
 pacchetto = ""
 lista = []
 
+
 def scrivi_su_stringa (numero_codice):
-	ls_ser = ['\x01', '\x11', numero_codice, '\x00', '\x00']
-				ls1 = lista[0]	
-				for i in range (1, len(lista)):
-					ls1 = calcola_checksum(ls1, lista[i])
-				lista.append(ls1)
-				for i in range (0, len(lista)):
-					ser.write(lista[i])
+	
+	ls_ser = ['\x02', '\x00', '\x01',chr(ord(numero_codice))]
+	ls1 = ls_ser[0]	
+	for i in range (1, len(ls_ser)):
+		ls1 = calcola_checksum(ls1, ls_ser[i])
+	ls_ser.append(ls1)
+	for i in range (0, len(ls_ser)):
+		ser.write(ls_ser[i])
+		
+	
 
 while True: 
 	s = ser.read(1) 
@@ -87,16 +86,18 @@ while True:
 		if len(pacchetto)>=3:
 			s = spacchetta(pacchetto)
 			if s == "OK":
-				numero_codice = pacchetto[-2]				
+				numero_codice = pacchetto[-2]
 				if numero_codice == "\x08":
 					verifica(lista)
 				elif numero_codice == "\x3c":
 					if len(lista)>0:
+						for i in range (0, len(lista)):
+							print lista[i]
 						del lista [-1]
 				else:
 					lista.append (numero_codice)
 					scrivi_su_stringa (numero_codice)
-			pacchetto = ""
+		pacchetto = ""
 	
 ser.close()
 
