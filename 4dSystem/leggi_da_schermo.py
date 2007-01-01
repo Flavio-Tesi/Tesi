@@ -44,21 +44,58 @@ def verifica (lista):
 		del lista[0:99]
 		return				
 
+
+def calcola_checksum (comando, parametro):
+	com = ord(comando)
+	for i in range (0, len(parametro)):
+		com = com ^ ord(parametro[i])
+	com = chr(com)
+	return com
+		
+				
 def spacchetta(pacchetto):
-	for i in range(0,len(pacchetto)):
-		print "%02x" % ord(pacchetto[i])
+	comando = pacchetto[0]
+	parametro = pacchetto[1:-1]
+	checksum = pacchetto[-1]
+	chk = calcola_checksum (comando, parametro)		
+	if chk == checksum:
+		print "Comando=%02x" % ord(comando)
+		print "Parametro:",
+		for i in range(0,len(parametro)):
+			print "%02x" % ord(parametro[i]),
+		print ""	
+		print "Checksum=%02x" % ord(checksum)
 	return 0
 
 pacchetto = ""
+
 while True: 
 	s = ser.read(1) 
 	if len(s)>0:	
 		pacchetto="".join([pacchetto,s])
 	else:
-		if len(pacchetto)>0:
+		if len(pacchetto)>=3:
 			spacchetta(pacchetto)
 			pacchetto=""
 			
+	#		comando = chr(int("0x01", 16))
+	#		par1 = chr(int("0x0A",16))
+	#		par2 = chr(int("0x01",16))
+	#		par3 = chr(int("0x00",16))
+	#		par = "".join([par1,par2,par3])
+	#		checksum = calcola_checksum(comando,par)
+	#		print "%02x" % ord(checksum)
+			
+			ser.write("0x010A10000001")
+	#		ser.write("\x0A")
+	#		ser.write("\x01")
+	#		ser.write("\x00")
+	#		ser.write("\x00")
+	#		ser.write("\x0A")
+			
+			
+						
+			
+			print "%02x" % ord(ser.read(1))
+			
 ser.close()
-
-
