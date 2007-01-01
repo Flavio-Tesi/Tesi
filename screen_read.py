@@ -2,7 +2,7 @@ import serial
 import lib_screen
  
 ser = serial.Serial(
-    port='/dev/ttys4', 
+    port='/dev/ttyS4', 
     baudrate=9600, 
     timeout=0.1,
     parity=serial.PARITY_NONE,
