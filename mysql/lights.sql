@@ -1,6 +1,7 @@
 /*DROP TABLE IF EXISTS `lights`;*/
 
 CREATE TABLE IF NOT EXISTS `lights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `room` varchar(25) NOT NULL ,
   `status` BIT(1) NOT NULL,
   PRIMARY KEY (`room`)

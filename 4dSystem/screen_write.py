@@ -10,7 +10,7 @@ def goto_form (ser, index):
 	for i in range (0, len(lista)):
 		ser.write(lista[i])
 
-def string_write_code (ser, index, numero_codice):
+def string_write (ser, index, numero_codice):
 	
 	lista = ['\x02', chr(index), '\x01',chr(ord(numero_codice))]
 	ls1 = ls_ser[0]	
@@ -37,24 +37,3 @@ def set_temperature (ser, index, val):
 	lista.append(ls1)
 	for i in range (0, len(lista)):
 		ser.write(lista[i])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

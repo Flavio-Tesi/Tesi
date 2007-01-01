@@ -1,5 +1,5 @@
 import serial
-import db_query
+import /root/Tesi/mysql/db_query
 import screen_write
  
 ser = serial.Serial(
@@ -84,7 +84,7 @@ while True:
 						del lista [-1]
 				else:
 					lista.append (numero_codice)
-					string_write_code (ser, numero_codice)
+					string_write (ser, numero_codice)
 		pacchetto = ""
 	
 ser.close()
