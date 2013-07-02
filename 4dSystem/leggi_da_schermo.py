@@ -3,9 +3,9 @@ import serial
  
 ser = serial.Serial(
 
-    port='/dev/ttyS4', 
+    port='/dev/ttyUSB0', 
 
-    baudrate=115200, 
+    baudrate=9600, 
 
     timeout=1,
 
@@ -17,13 +17,90 @@ ser = serial.Serial(
 
 )  
 
+
+
+def verifica (lista):
+	
+	if lista[0] == "1":
+		if lista[1] == "7":
+			if lista[2] == "0":
+				if lista[3] == "5":
+					if lista[4] == "0":
+						if lista[5] == "9":
+							print "DAJEEEEEEEEEEE"
+							
+
+
+
+
+
+
+sr = ""
+lista = []
+
+
+
 while True: 
 
+	
 	s = ser.read(1) 
+	
+	if len(s)>0:	
+				
+		se = "%02x" % ord(s)
+		
+		sr = " ".join([sr, se])
+		
+		if sr == " 07 0d 00 00 30 3a":
+			 lista.append ("0")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 31 3b":
+			 lista.append ("1")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 32 38":
+			 lista.append ("2")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 33 39":
+			 lista.append ("3")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 34 3e":
+			 lista.append ("4")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 35 3f":
+			 lista.append ("5")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 36 3c":
+			 lista.append ("6")
+			 sr = ""
+			 
+		
+		if sr == " 07 0d 00 00 37 3d":
+			 lista.append ("7")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 38 32":
+			 lista.append ("8")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 39 33":
+			 lista.append ("9")
+			 sr = ""
+		
+		if sr == " 07 0d 00 00 3c 36":
+			 del lista[-1]	
+			 sr = ""
+			 
+		if sr == " 07 0d 00 00 08 02":
+			verifica (lista)
+			sr = ""
 
-	if len(s)>0:
-
-		print "%02x" % ord(s)
-
-
+			 
 ser.close()
+
+
