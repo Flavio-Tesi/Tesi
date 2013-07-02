@@ -21,7 +21,7 @@ ser = serial.Serial(
 
 def verifica (lista):
 	
-	if lista[0]:
+	if len(lista)>0:
 	
 		if lista[0] == "1":
 			if lista[1] == "7":
@@ -120,7 +120,8 @@ while True:
 			 sr = ""
 		
 		if sr == " 07 0d 00 00 3c 36":
-			 del lista[-1]	
+			 if len(lista)>0:
+				del lista[-1]	
 			 sr = ""
 			 
 		if sr == " 07 0d 00 00 08 02":
