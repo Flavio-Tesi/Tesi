@@ -21,28 +21,39 @@ ser = serial.Serial(
 
 def verifica (lista):
 	
-	if lista[0] == "1":
-		if lista[1] == "7":
-			if lista[2] == "0":
-				if lista[3] == "5":
-					if lista[4] == "0":
-						if lista[5] == "9":
-							print "DAJEEEEEEEEEEE"
-							del lista[0:6]
-							return
+	if lista[0]:
+	
+		if lista[0] == "1":
+			if lista[1] == "7":
+				if lista[2] == "0":
+					if lista[3] == "5":
+						if lista[4] == "0":
+							if lista[5] == "9":
+								ser.write ("\xFF")
+								ser.write ("\xB4")
+								ser.write ("\x00")
+								ser.write ("\x00")
+								ser.write ("\x00")
+								ser.write ("\x1F")
+								while True: 
+									s = ser.read(1)
+									if len(s)>0:	
+										print "%02x" % ord(s)
+								del lista[0:6]
+								return
 							
-	if lista[0] == "9":
-		if lista[1] == "0":
-			if lista[2] == "5":
-				if lista[3] == "0":
-					if lista[4] == "7":
-						if lista[5] == "1":
-							print "DAJEEEEEEEEEEE2"
-							del lista[0:6]
-							return
+		if lista[0] == "9":
+			if lista[1] == "0":
+				if lista[2] == "5":
+					if lista[3] == "0":
+						if lista[4] == "7":
+							if lista[5] == "1":
+								print "OK! USER 2"
+								del lista[0:6]
+								return
 							
 	else:
-		print "crepa!!"
+		print "ERROR!"
 		del lista[0:99]
 		return				
 
