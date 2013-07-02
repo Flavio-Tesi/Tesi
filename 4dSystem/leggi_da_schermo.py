@@ -28,7 +28,23 @@ def verifica (lista):
 					if lista[4] == "0":
 						if lista[5] == "9":
 							print "DAJEEEEEEEEEEE"
+							del lista[0:6]
+							return
 							
+	if lista[0] == "9":
+		if lista[1] == "0":
+			if lista[2] == "5":
+				if lista[3] == "0":
+					if lista[4] == "7":
+						if lista[5] == "1":
+							print "DAJEEEEEEEEEEE2"
+							del lista[0:6]
+							return
+							
+	else:
+		print "crepa!!"
+		del lista[0:99]
+		return				
 
 
 
