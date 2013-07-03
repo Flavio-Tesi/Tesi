@@ -23,18 +23,17 @@ def verifica (lista):
 	
 	if len(lista)>0:
 	
-		if lista[0] == "1":
-			if lista[1] == "7":
-				if lista[2] == "0":
-					if lista[3] == "5":
-						if lista[4] == "0":
-							if lista[5] == "9":
-								ser.write ("\xFF")
-								ser.write ("\xB4")
+		if (lista[0],lista[1],lista[2],lista[3],lista[4],lista[5]) == ("1","7","0","5","0","9"):
+								ser.write ("\x43")
 								ser.write ("\x00")
+								ser.write ("\x3F")
 								ser.write ("\x00")
+								ser.write ("\x3F")
+								ser.write ("\x00")
+								ser.write ("\x22")
 								ser.write ("\x00")
 								ser.write ("\x1F")
+								
 								while True: 
 									s = ser.read(1)
 									if len(s)>0:	
@@ -42,18 +41,18 @@ def verifica (lista):
 								del lista[0:6]
 								return
 							
-		if lista[0] == "9":
-			if lista[1] == "0":
-				if lista[2] == "5":
-					if lista[3] == "0":
-						if lista[4] == "7":
-							if lista[5] == "1":
+		elif (lista[0],lista[1],lista[2],lista[3],lista[4],lista[5]) == ("9","0","5","0","7","1"):		
 								print "OK! USER 2"
 								del lista[0:6]
 								return
+								
+		else:
+			print "ERROR!"
+			del lista[0:99]
+			return	
 							
 	else:
-		print "ERROR!"
+		print "INSERIRE CODICE!"
 		del lista[0:99]
 		return				
 
