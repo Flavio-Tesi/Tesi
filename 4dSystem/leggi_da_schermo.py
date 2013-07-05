@@ -35,18 +35,12 @@ def verifica (lista):
 		lista_control2 = ['9','0','5','0','7','1']
 		
 		if lista == lista_control1:
-			print "evvivaaaa"
 			goto_form(1)
-			
-			while True: 
-				s = ser.read(1)
-				if len(s)>0:	
-					print "%02x" % ord(s)
 			del lista[0:6]
 			return
 							
 		elif lista == lista_control2:		
-			print "OK! USER 2"
+			goto_form(2)
 			del lista[0:6]
 			return
 								
@@ -68,16 +62,22 @@ def spacchetta(pacchetto):
 	checksum = pacchetto[-1]
 	chk = calcola_checksum (comando, parametro)		
 	if chk == checksum:
-		print "Comando=%02x" % ord(comando)
-		print "Parametro:",
-		for i in range(0,len(parametro)):
-			print "%02x" % ord(parametro[i]),
-		print ""	
-		print "Checksum=%02x" % ord(checksum)
-	return 0
+		return "OK"
+	else:
+		return "NO"
+	
 
 pacchetto = ""
 lista = []
+
+def scrivi_su_stringa (numero_codice):
+	ls_ser = ['\x01', '\x11', numero_codice, '\x00', '\x00']
+				ls1 = lista[0]	
+				for i in range (1, len(lista)):
+					ls1 = calcola_checksum(ls1, lista[i])
+				lista.append(ls1)
+				for i in range (0, len(lista)):
+					ser.write(lista[i])
 
 while True: 
 	s = ser.read(1) 
@@ -85,22 +85,19 @@ while True:
 		pacchetto="".join([pacchetto,s])
 	else:
 		if len(pacchetto)>=3:
-			spacchetta(pacchetto)
-			numero_codice = pacchetto[-2]
-			
-			if numero_codice == "\x08":
-				verifica(lista)
-			
-			elif numero_codice == "\x3c":
-				if len(lista)>0:
-					del lista [-1]
-			
-			else:lista.append (numero_codice)
-			
+			s = spacchetta(pacchetto)
+			if s == "OK":
+				numero_codice = pacchetto[-2]				
+				if numero_codice == "\x08":
+					verifica(lista)
+				elif numero_codice == "\x3c":
+					if len(lista)>0:
+						del lista [-1]
+				else:
+					lista.append (numero_codice)
+					scrivi_su_stringa (numero_codice)
 			pacchetto = ""
-			
-	#		print "%02x" % ord(ser.read(1))
-			
+	
 ser.close()
 
 
