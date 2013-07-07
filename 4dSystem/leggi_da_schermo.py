@@ -1,7 +1,7 @@
 import serial
  
 ser = serial.Serial(
-    port='/dev/ttyS4', 
+    port='/dev/ttyUSB0', 
     baudrate=9600, 
     timeout=0.1,
     parity=serial.PARITY_NONE,
@@ -44,6 +44,7 @@ def verifica (lista):
 								
 		else:
 			goto_form(3)
+			del lista[0:99]
 			return	
 							
 	else:
